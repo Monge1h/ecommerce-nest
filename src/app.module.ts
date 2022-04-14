@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './products/products.module';
 import { UtilsModule } from './utils/utils.module';
+import { userPreferencesMiddleware } from './utils/utils.middleware';
 import config from './config';
 import * as Joi from 'joi';
 
@@ -22,4 +23,8 @@ import * as Joi from 'joi';
     UtilsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(userPreferencesMiddleware).forRoutes('products');
+  }
+}
