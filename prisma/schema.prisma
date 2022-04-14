@@ -19,3 +19,95 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model products {
+  id                     Int     @id @default(autoincrement())
+  sku                    String  @db.VarChar(50)
+  name                   String  @db.VarChar(100)
+  id_category            Int
+  id_country             Int
+  international_shipping Boolean @default(false)
+
+  countries  countries   @relation(fields: [id_country], references: [id])
+  categories categories? @relation(fields: [id_category], references: [id])
+
+  prices_products       prices_products[]
+  descriptions_products descriptions_products[]
+
+  @@index([id_country], name: "fk_products_countries")
+  @@index([id_category], name: "fk_products_categories")
+}
+
+model descriptions_products {
+  id          Int     @id @default(autoincrement())
+  id_product  Int
+  id_language Int
+  description String? @db.Text
+
+  language language  @relation(fields: [id_language], references: [id])
+  products products? @relation(fields: [id_product], references: [id])
+
+  @@index([id_product], name: "fk_descriptions_products")
+  @@index([id_language], name: "fk_language_products")
+}
+
+model prices_products {
+  id          Int      @id @default(autoincrement())
+  id_product  Int?
+  id_currency Int
+  price       Decimal? @db.Decimal(10, 2)
+
+  currency currency  @relation(fields: [id_currency], references: [id])
+  products products? @relation(fields: [id_product], references: [id])
+
+  @@index([id_product], name: "fk_prices_products")
+  @@index([id_currency], name: "fk_currency_products")
+}
+
+model language {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(100)
+
+  descriptions_products descriptions_products[]
+  store                 store[]
+  countries             countries[]
+}
+
+model store {
+  id                  Int     @id @default(autoincrement())
+  name                String? @db.VarChar(100)
+  email               String  @db.VarChar(100)
+  id_default_currency Int
+  id_default_language Int
+
+  currency currency @relation(fields: [id_default_currency], references: [id])
+  language language @relation(fields: [id_default_language], references: [id])
+}
+
+model categories {
+  id          Int        @id @default(autoincrement())
+  name        String?    @db.VarChar(100)
+  description String?    @db.VarChar(200)
+  picture     String?    @db.VarChar(100)
+  products    products[]
+}
+
+model countries {
+  id           Int        @id @default(autoincrement())
+  name         String?    @db.VarChar(100)
+  country_code String?    @db.VarChar(45)
+  id_currency  Int
+  id_language  Int
+  language     language   @relation(fields: [id_language], references: [id])
+  currency     currency   @relation(fields: [id_currency], references: [id])
+  products     products[]
+}
+
+model currency {
+  id              Int               @id @default(autoincrement())
+  name            String?           @db.VarChar(100)
+  abbrev          String?           @db.VarChar(100)
+  prices_products prices_products[]
+  countries       countries[]
+  store           store[]
+}
