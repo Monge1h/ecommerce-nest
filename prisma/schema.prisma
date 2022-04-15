@@ -107,6 +107,7 @@ model currency {
   id              Int               @id
   name            String?           @db.VarChar(100)
   abbrev          String?           @db.VarChar(100)
+  symbol          String?           @db.VarChar(10)
   prices_products prices_products[]
   countries       countries[]
   store           store[]
