@@ -20,7 +20,7 @@ export class ProductsService {
     const cache_data = await this.cacheManager.get(
       `allproducts${JSON.stringify(userPreferences)}`,
     );
-    if (cache_data !== undefined) {
+    if (cache_data !== null) {
       return cache_data;
     }
     const data = await this.prismaService.products.findMany({
@@ -56,7 +56,7 @@ export class ProductsService {
       `allproducts${JSON.stringify(userPreferences)}`,
       sorted_data,
       {
-        ttl: 1000,
+        ttl: 100,
       },
     );
     return sorted_data;
