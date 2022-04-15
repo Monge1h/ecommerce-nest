@@ -93,7 +93,7 @@ model categories {
 }
 
 model countries {
-  id           Int        @id @default(autoincrement())
+  id           Int        @id
   name         String?    @db.VarChar(100)
   country_code String?    @db.VarChar(45)
   id_currency  Int
@@ -104,9 +104,10 @@ model countries {
 }
 
 model currency {
-  id              Int               @id @default(autoincrement())
+  id              Int               @id
   name            String?           @db.VarChar(100)
   abbrev          String?           @db.VarChar(100)
+  symbol          String?           @db.VarChar(10)
   prices_products prices_products[]
   countries       countries[]
   store           store[]

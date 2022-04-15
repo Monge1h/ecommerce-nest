@@ -1,5 +1,11 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  CacheModule,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import * as redisStore from 'cache-manager-redis-store';
 
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './products/products.module';
@@ -10,6 +16,14 @@ import * as Joi from 'joi';
 
 @Module({
   imports: [
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      socket: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT,
+      },
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
