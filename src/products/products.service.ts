@@ -14,7 +14,6 @@ export class ProductsService {
   }
 
   async findAll(userPreferences) {
-    console.log(userPreferences);
     const data = await this.prismaService.products.findMany({
       orderBy: [
         {
