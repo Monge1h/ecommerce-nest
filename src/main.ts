@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { GeoLocationMiddleware } from './utils/utils.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+  app.use(GeoLocationMiddleware);
   const config = new DocumentBuilder()
     .setTitle('Global Ecommerce API')
     .setDescription('Global Ecommerce API endpoints')
