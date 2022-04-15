@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, CACHE_MANAGER, Inject } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -6,6 +8,7 @@ import { UtilsService } from '../utils/utils.service';
 @Injectable()
 export class ProductsService {
   constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly prismaService: PrismaService,
     private readonly utilsService: UtilsService,
   ) {}
@@ -14,7 +17,12 @@ export class ProductsService {
   }
 
   async findAll(userPreferences) {
-    console.log(userPreferences);
+    const cache_data = await this.cacheManager.get(
+      `allproducts${JSON.stringify(userPreferences)}`,
+    );
+    if (cache_data !== null) {
+      return cache_data;
+    }
     const data = await this.prismaService.products.findMany({
       orderBy: [
         {
@@ -43,6 +51,13 @@ export class ProductsService {
     const sorted_data = this.utilsService.sortDataByUserPreferences(
       data,
       userPreferences,
+    );
+    await this.cacheManager.set(
+      `allproducts${JSON.stringify(userPreferences)}`,
+      sorted_data,
+      {
+        ttl: 100,
+      },
     );
     return sorted_data;
   }

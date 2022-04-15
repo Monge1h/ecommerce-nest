@@ -8,8 +8,17 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: nest
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql
     networks:
       - ecommerce
+  
+  redis:
+    image: redis:6.2-alpine
+    volumes:
+      - './data/redis-data:/data'
+    ports:
+      - 6380:6379
 networks:
   ecommerce:
     driver: bridge
