@@ -14,8 +14,13 @@ export class ProductsService {
   }
 
   async findAll(userPreferences) {
-    console.log(userPreferences)
+    console.log(userPreferences);
     const data = await this.prismaService.products.findMany({
+      orderBy: [
+        {
+          international_shipping: 'desc',
+        },
+      ],
       include: {
         descriptions_products: {
           include: {
