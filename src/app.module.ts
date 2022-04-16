@@ -19,10 +19,8 @@ import * as Joi from 'joi';
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
-      socket: {
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-      },
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',

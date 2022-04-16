@@ -1,9 +1,10 @@
 version: '3.8'
 services:
-  db:
+  postgres:
+    container_name: postgres
     image: postgres:13
     ports:
-      - 5434:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
@@ -13,12 +14,30 @@ services:
     networks:
       - ecommerce
   
+
+
   redis:
+    container_name: redis
     image: redis:6.2-alpine
     volumes:
       - './data/redis-data:/data'
     ports:
-      - 6380:6379
+      - "6389:6379"
+    networks:
+     - ecommerce
+
+  server:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "3005:3000"
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - ecommerce
 networks:
   ecommerce:
     driver: bridge
