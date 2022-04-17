@@ -30,6 +30,11 @@ export class ProductsService {
         },
       ],
       include: {
+        countries: {
+          select: {
+            name: true,
+          },
+        },
         descriptions_products: {
           include: {
             language: true,
