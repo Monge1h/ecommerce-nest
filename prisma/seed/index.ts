@@ -1829,9 +1829,9 @@ const run = async () => {
       console.log('Default store already created');
     }
     if ((await prisma.products.count()) === 0) {
-      const countries = [236, 144, 67]; // USA, MEX, SV
+      const countries = [236, 144, 67, 174, 41]; // USA, MEX, SV, PE, CA
 
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         await prisma.products.create({
           data: {
             name: faker.commerce.product(),
