@@ -15,6 +15,7 @@ export class UtilsService {
 
   sortDataByUserPreferences(products, user_preferences: any) {
     const new_products = products.map((product) => {
+      product.country_name = product.countries ? product.countries.name : '';
       product.description =
         product.descriptions_products.length > 0
           ? product.descriptions_products[0]['description']
@@ -29,6 +30,7 @@ export class UtilsService {
           : 'Unknown';
       delete product.prices_products;
       delete product.descriptions_products;
+      delete product.countries;
       return product;
     });
 
