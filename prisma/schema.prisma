@@ -29,8 +29,8 @@ model products {
   id_country             Int
   international_shipping Boolean @default(false)
 
-  countries  countries   @relation(fields: [id_country], references: [id])
-  categories categories? @relation(fields: [id_category], references: [id])
+  countries  countries   @relation(fields: [id_country], references: [id], onDelete:Cascade)
+  categories categories? @relation(fields: [id_category], references: [id], onDelete:Cascade)
 
   prices_products       prices_products[]
   descriptions_products descriptions_products[]
