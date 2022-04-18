@@ -26,6 +26,7 @@ export class UsersService {
         password: new_password,
         first_name: createUserDto.first_name,
         last_name: createUserDto.last_name,
+        user_country: createUserDto.user_country,
       },
     });
     delete new_user.password;
@@ -73,6 +74,7 @@ export class UsersService {
         password: new_password,
         last_name: updateUserDto.last_name,
         first_name: updateUserDto.first_name,
+        user_country: updateUserDto.user_country,
       },
       select: {
         id: true,
