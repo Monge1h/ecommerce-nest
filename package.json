@@ -33,6 +33,7 @@
     "cache-manager-redis-store": "^2.0.0",
     "geoip-lite": "^1.4.2",
     "joi": "^17.6.0",
+    "nest-winston": "^1.6.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
