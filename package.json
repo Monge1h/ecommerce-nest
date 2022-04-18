@@ -23,6 +23,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@google-cloud/logging-winston": "^4.2.2",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.0.0",
@@ -33,6 +34,7 @@
     "cache-manager-redis-store": "^2.0.0",
     "geoip-lite": "^1.4.2",
     "joi": "^17.6.0",
+    "nest-winston": "^1.6.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
