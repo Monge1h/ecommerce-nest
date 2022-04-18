@@ -16,6 +16,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './products/products.module';
 import { UtilsModule } from './utils/utils.module';
 import { userPreferencesMiddleware } from './utils/utils.middleware';
+import { UsersModule } from './users/users.module';
 import config from './config';
 import * as Joi from 'joi';
 
@@ -72,6 +73,7 @@ if (process.env.LOGS_GCP == '1') {
     PrismaModule,
     ProductsModule,
     UtilsModule,
+    UsersModule,
   ],
 })
 export class AppModule implements NestModule {
