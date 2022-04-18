@@ -5,5 +5,6 @@ export default registerAs('config', () => {
     database: {
       URI: process.env.DATABASE_URL,
     },
+    jwtSecret: process.env.JWT_SECRET,
   };
 });

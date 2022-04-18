@@ -6,6 +6,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -17,6 +19,7 @@ export class ProductsService {
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly prismaService: PrismaService,
     private readonly utilsService: UtilsService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
   async create(createProductDto: CreateProductDto) {
     const product = await this.prismaService.products.create({
@@ -89,7 +92,10 @@ export class ProductsService {
         },
       },
     });
-    if (!data) throw new NotFoundException('Items Not founds');
+    if (!data) {
+      this.logger.warn('Items not found');
+      throw new NotFoundException('Items Not founds');
+    }
     const sorted_data = this.utilsService.sortDataByUserPreferences(
       data,
       userPreferences,
@@ -137,7 +143,10 @@ export class ProductsService {
         },
       },
     });
-    if (!data) throw new NotFoundException('Item Not found');
+    if (!data) {
+      this.logger.warn(`Item with ${id} not found`);
+      throw new NotFoundException('Item Not found');
+    }
     const sorted_data = this.utilsService.sortDataByUserPreferences(
       [data],
       userPreferences,
