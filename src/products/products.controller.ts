@@ -14,7 +14,8 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
-
+import { ApiParam, ApiTags } from '@nestjs/swagger';
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(
@@ -39,18 +40,35 @@ export class ProductsController {
     }
   }
 
+  @ApiParam({
+    name: 'id',
+    description: 'id of product',
+    type: 'number',
+    required: true,
+  })
   @Get(':id')
   async findOne(@Param('id') id: string, @Response() res) {
     const user_preferences = res.locals.user_preferences;
     const data = await this.productsService.findOne(+id, user_preferences);
     return res.status(200).json(data);
   }
-
+  @ApiParam({
+    name: 'id',
+    description: 'id of product',
+    type: 'number',
+    required: true,
+  })
   @Put(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.update(+id, updateProductDto);
   }
 
+  @ApiParam({
+    name: 'id',
+    description: 'id of product',
+    type: 'number',
+    required: true,
+  })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productsService.remove(+id);

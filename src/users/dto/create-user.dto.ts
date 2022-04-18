@@ -19,17 +19,14 @@ export class CreateUserDto {
   password: string;
   @IsString()
   @IsNotEmpty()
-  @Length(6)
   @ApiProperty({ description: 'the first name of the user' })
   readonly first_name: string;
   @IsString()
   @IsNotEmpty()
-  @Length(6)
   @ApiProperty({ description: 'the last name of the user' })
   readonly last_name: string;
   @IsNumber()
   @IsNotEmpty()
-  @Length(6)
   @ApiProperty({ description: 'the country of the user' })
   readonly user_country: number;
 }
