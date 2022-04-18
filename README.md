@@ -18,6 +18,11 @@
  
 - Product descriptions and prices are based on the user's geolocation
 - Cache strategy using redis
+- Swagger documentation under "/api/docs"
+- CI/CD workflow
+- Jwt auth
+- Logs using google logging
+- Pipelines to validate client requests
 
 
 ## Environment Variables
@@ -39,6 +44,7 @@ To run this project, you will need to add the following environment variables to
 
 `LOGS_GCP`
 
+### Jwt
 
 ## Deployment
 
@@ -50,7 +56,6 @@ To deploy this project run
 
 ## Roadmap
 
-- Additional browser support
 
 - Add more integrations
 
