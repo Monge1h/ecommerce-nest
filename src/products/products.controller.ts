@@ -37,7 +37,7 @@ export class ProductsController {
     try {
       const user_preferences = res.locals.user_preferences;
       const data = await this.productsService.findAll(user_preferences);
-      this.logger.warn(JSON.stringify(data));
+      this.logger.info(JSON.stringify(data));
       return res.status(200).json(data);
     } catch (error) {
       this.logger.error(error);
