@@ -2,9 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { GeoLocationMiddleware } from './utils/utils.middleware';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: false,
+  });
+  const nestWinston = app.get(WINSTON_MODULE_NEST_PROVIDER);
+  // Overall logger
+  app.useLogger(nestWinston);
+  //  Exception blocking write log
   app.setGlobalPrefix('api');
   app.use(GeoLocationMiddleware);
   const config = new DocumentBuilder()
