@@ -68,10 +68,9 @@ To deploy this project run
 ## API Reference
 
 Once the server starts running, you can go to: 
-#### Get all items
 
 ```http
-  http://localhost:3000/api/docs/
+  http://localhost:3005/api/docs/
 ```
 
 ## Roadmap
