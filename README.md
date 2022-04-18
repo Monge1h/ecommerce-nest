@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
-**Server:** Node, Nest js, Prisma ORM, Postgress, Redis
+**Server:** Node, Nest js, Prisma ORM, Postgresql, Redis
 
 
 ## Features
@@ -23,9 +23,18 @@
 - Jwt auth
 - Logs using google logging
 - Pipelines to validate client requests
+- Database migrations and seeder
 
 
-## Environment Variables
+
+## Run on Docker 🐳
+
+Clone the project
+```bash
+  git clone git@github.com:Monge1h/ecommerce-nest.git
+```
+
+### Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -45,13 +54,24 @@ To run this project, you will need to add the following environment variables to
 `LOGS_GCP`
 
 ### Jwt
+`JWT_SECRET`
 
-## Deployment
+
+Create a .env file based on .env.example
 
 To deploy this project run
 
 ```bash
   docker-compose up
+```
+
+## API Reference
+
+Once the server starts running, you can go to: 
+#### Get all items
+
+```http
+  http://localhost:3000/api/docs/
 ```
 
 ## Roadmap
